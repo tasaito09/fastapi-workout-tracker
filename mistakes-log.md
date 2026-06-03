@@ -92,3 +92,23 @@ Issue -> save_workouts and load_workouts should be in the same file for a cleane
 Fix:
 Keep save_workouts() in storage.py. 
 Modify save_workouts() to take 'workouts' as a parameter.
+
+## JS function not being called 
+Problem:
+The JS function in scripts.js was not being called properly inside index.html
+
+Fix: 
+I changed the src path to "scripts.js", instead of "static/scripts.js", because both the index.html and scripts.js file are both already in the same 'static' directory. 
+
+## Incorrect return type for API endpoint
+Problem: 
+I set the GET /workouts/ API endpoint to return a HTML page, instead of the JSON workout data that it used to return.
+
+Fix:
+One route for webpage AND separate routes for API data. 
+
+## Button click doesn't actually load /workouts/ page
+Problem:
+Button click -> FastAPI returns HTML -> JavaScript receives response -> but i never do anything with it
+** Making an API request doesn't automatically change the browser webpage
+Page navigation is a whole different concept from API requests

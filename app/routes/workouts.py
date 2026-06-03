@@ -2,25 +2,20 @@ from fastapi import APIRouter
 from app.models import Workout
 from app.services.storage import load_workouts, save_workouts
 
+from fastapi.responses import FileResponse
 
-router = APIRouter()
 
+router = APIRouter(prefix="/workouts")
 
-# load data from memory, once upon start up
 workouts = load_workouts()
 
 
 @router.get("/")
-def home():
-    return {"message": "Workout tracker API is running"}
-
-
-@router.get("/workouts")
 def get_workouts():
     return workouts
 
 
-@router.get("/workouts/{workout_id}")
+@router.get("/{workout_id}")
 def get_workout(workout_id: int):
 
     for workout in workouts:
@@ -28,7 +23,7 @@ def get_workout(workout_id: int):
             return workout
 
 
-@router.post("/workouts")
+@router.post("/")
 def add_workout(workout: Workout):
 
     new_workout = {
@@ -50,7 +45,7 @@ def add_workout(workout: Workout):
     }
 
 
-@router.delete("/workouts/{workout_id}")
+@router.delete("/{workout_id}")
 def delete_workout(workout_id: int):
 
     for workout in workouts:
@@ -62,7 +57,7 @@ def delete_workout(workout_id: int):
     return {"error": "Workout not found"}
 
 
-@router.put("/workouts/{workout_id}")
+@router.put("/{workout_id}")
 def update_workout(workout_id: int, workout: Workout):
 
     for existing_workout in workouts:

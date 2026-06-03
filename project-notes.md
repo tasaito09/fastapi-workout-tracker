@@ -82,3 +82,44 @@ Logic
 Model/Data
     ↓
 Response
+
+## 5-26-26
+### Frontend and backend separation
+Webpage should be its own file -> think about maintainability
+Backend API routes are useful by themselves -> the frontend should consume, not replace them
+Which means the frontend should be making requests TO those endpoints
+Remember: "frontend talks to the backend"
+
+#### Mental Model
+Browser
+    ↓
+Loads index.html
+    ↓
+JavaScript inside page talks to FastAPI
+    ↓
+FastAPI returns JSON
+    ↓
+JavaScript updates webpage
+---
+Fn + F12 -> open DevTools in browser
+
+## 5-27-26
+### Separating webpage and API data routes
+I need to have separate routes: one route for webpage AND another route for API data.
+Webpage route: "give browser the actual webpage" -> Returns: html
+API route: "Give frontend workout data" -> Returns: JSON
+
+Note: The browser loads 'index.html' ONLY ONCE initially. (It's the home page)
+
+### fetch() doesn't change pages automatically
+Thing                   Purpose
+---
+Browser navigation  |   changes pages
+fetch()             |   background HTTP request
+FileResponse        |   sends file
+JSON API            |   sends data
+DOM manipulation    |   updates page dynamically
+
+### fetch("/workouts/")
+means "Browser: send an HTTP GET request to this URL path on the current server"
+
