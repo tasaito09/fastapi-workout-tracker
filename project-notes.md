@@ -151,3 +151,12 @@ What's really going on here is something like this:
 1. Send the request (and don't wait)
 2. When the response arrives -> parse it as JSON (and don't wait)
 3. When parsing is done -> use the data
+
+### DOM methods
+document.createElement -> create new HTML element
+li.textContent = x -> assign x to HTML element
+workoutList.append(li) -> attach HTML element to HTML page
+
+## Displaying workouts
+Changed html section from <div> to <ul> since I was creating new 'li' elements to display the workouts
+added the replaceChildren() at the top of displaying step to clear the list on each button click

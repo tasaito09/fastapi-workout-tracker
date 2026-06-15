@@ -6,10 +6,11 @@ async function getWorkouts() {
     fetch("/workouts/")
         .then(response => response.json())
         .then(data => {
+            workoutList.replaceChildren();
             for (let i = 0; i < data.length; i++) {
-                const p = document.createElement("p");
-                p.textContent = data[i].exercise;
-                workoutList.append(p);
+                const li = document.createElement("li");
+                li.textContent = data[i].exercise;
+                workoutList.append(li);
             }
         })
 }
