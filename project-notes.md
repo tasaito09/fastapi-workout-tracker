@@ -26,7 +26,7 @@ For every project I create from here on out, I should always have these files:
 
 ## 5-21-26
 @app.get("/") -> when someone sends a GET request to '/', run this function
-uvicorn main:app --reload -> run the terminal
+uvicorn app.main:app --reload -> run the terminal
 http://127.0.0.1:8000/docs -> fastapi lets you test the api directly from browser
 
 class Workout(BaseModel): -> defines shape of workout data
@@ -90,7 +90,8 @@ Backend API routes are useful by themselves -> the frontend should consume, not 
 Which means the frontend should be making requests TO those endpoints
 Remember: "frontend talks to the backend"
 
-#### Mental Model
+### Mental Model
+
 Browser
     ↓
 Loads index.html
@@ -123,3 +124,30 @@ DOM manipulation    |   updates page dynamically
 ### fetch("/workouts/")
 means "Browser: send an HTTP GET request to this URL path on the current server"
 
+## 6-8-26
+### How does fetch("/workouts/") know to trigger te GET endpoint in workouts.py?
+Because: 
+
+In main.py, app.include_router(router) registers all routes from:
+
+router = APIRouter(prefix="/workouts"), in workouts.py, which creates:
+
+'/workouts/', and FastAPI matches incoming URLs against its routing table
+
+fetch("/workouts/") sends a GET request to the FastAPI endpoint at '/workouts/'
+
+@router.get("/") inside router = APIRouter(prefix="/workouts") creates the route 'GET /workouts/'
+
+'/' serves the webpage. '/workouts/' serves the JSON data for the webpage to use
+
+## 6-15-26
+### Promise chaining
+    
+    fetch("/workouts/")                     // sends HTTP request to server
+        .then(response => response.json())  // when response arrives, parse it as JSON. .json() also returns a Promise
+        .then(data => console.log(data))    // when parsing is done, log the actual data
+
+What's really going on here is something like this:
+1. Send the request (and don't wait)
+2. When the response arrives -> parse it as JSON (and don't wait)
+3. When parsing is done -> use the data

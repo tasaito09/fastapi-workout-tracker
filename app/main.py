@@ -19,7 +19,3 @@ async def home(request: Request):
         request=request,
         name="index.html"
     )
-
-# @app.get("/")
-# async def read_index():
-#     return FileResponse("app/templates/index.html") 
